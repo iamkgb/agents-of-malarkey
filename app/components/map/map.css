@@ -1,0 +1,243 @@
+.marker-cluster-custom {
+  background: #16a34a;
+  border: 3px solid #70d495;
+  border-radius: 50%;
+  color: #fff;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  font-weight: bold;
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+}
+
+@keyframes pulse-glow {
+  0%,
+  100% {
+    opacity: 1;
+    filter: drop-shadow(0 0 16px #16a34a) drop-shadow(0 0 28px #16a34a80)
+      drop-shadow(0 0 40px #16a34a40);
+    stroke: #16a34a;
+  }
+  50% {
+    opacity: 0.8;
+    filter: drop-shadow(0 0 20px #6b7280) drop-shadow(0 0 32px #6b728080)
+      drop-shadow(0 0 44px #6b728040);
+    stroke: #6b7280;
+  }
+}
+
+@keyframes scale-pulse {
+  0%,
+  100% {
+    transform: scale(0.9);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+.marker-icon {
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+  animation: scale-pulse 4s ease-in-out infinite;
+  transform-origin: center center;
+  transition:
+    opacity 0.3s ease,
+    filter 0.3s ease;
+}
+
+/* Active marker styles (within range) */
+.marker-icon-active {
+  opacity: 1;
+  filter: brightness(1.1) saturate(1.2);
+}
+
+/* Inactive marker styles (out of range) */
+.marker-icon-inactive {
+  opacity: 0.6;
+  filter: grayscale(0.3) brightness(0.8);
+}
+
+/* Glow effect for markers in range */
+.marker-glow {
+  position: relative;
+}
+
+.marker-glow::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 80px;
+  height: 80px;
+  background: radial-gradient(
+    circle,
+    rgba(34, 197, 94, 0.3) 0%,
+    transparent 70%
+  );
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  animation: proximity-pulse 2s ease-in-out infinite;
+  z-index: -1;
+}
+
+/* Proximity indicator (music note) */
+.proximity-indicator {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background: #22c55e;
+  color: white;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  border: 2px solid white;
+  animation: bounce 1s ease-in-out infinite;
+  z-index: 10;
+}
+
+@keyframes proximity-pulse {
+  0%,
+  100% {
+    opacity: 0.6;
+    transform: translate(-50%, -50%) scale(0.9);
+  }
+  50% {
+    opacity: 0.8;
+    transform: translate(-50%, -50%) scale(1.1);
+  }
+}
+
+@keyframes bounce {
+  0%,
+  20%,
+  50%,
+  80%,
+  100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-5px);
+  }
+  60% {
+    transform: translateY(-3px);
+  }
+}
+
+.marker-container {
+  background-color: transparent !important;
+  border: none !important;
+}
+
+/* User location marker styles */
+.user-location-marker {
+  background-color: transparent !important;
+  border: none !important;
+}
+
+.user-location-container {
+  position: relative;
+  width: 20px;
+  height: 20px;
+}
+
+.user-location-dot {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 12px;
+  height: 12px;
+  background-color: #2563eb;
+  border: 3px solid #ffffff;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  z-index: 2;
+}
+
+.user-location-pulse {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  background-color: rgba(37, 99, 235, 0.3);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  animation: location-pulse 2s ease-in-out infinite;
+  z-index: 1;
+}
+
+@keyframes location-pulse {
+  0% {
+    transform: translate(-50%, -50%) scale(0.8);
+    opacity: 0.8;
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.2);
+    opacity: 0.4;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1.6);
+    opacity: 0;
+  }
+}
+
+/* Persistent Audio Player Styles */
+.persistent-audio-player {
+  backdrop-filter: blur(10px);
+  background-color: rgba(255, 255, 255, 0.95);
+  transition: all 0.3s ease;
+}
+
+.persistent-audio-player:hover {
+  background-color: rgba(255, 255, 255, 1);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* Custom audio player styles */
+.persistent-audio-player audio {
+  border-radius: 6px;
+}
+
+.persistent-audio-player audio::-webkit-media-controls-panel {
+  background-color: transparent;
+}
+
+/* Ensure audio player is responsive */
+@media (max-width: 640px) {
+  .persistent-audio-player .main-content {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .persistent-audio-player .audio-container {
+    order: 2;
+    width: 100%;
+    max-width: none;
+  }
+
+  .persistent-audio-player .track-info-container {
+    order: 1;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .persistent-audio-player .details-button {
+    order: 3;
+    align-self: flex-start;
+  }
+
+  .persistent-audio-player audio {
+    width: 100%;
+    height: 40px;
+  }
+}

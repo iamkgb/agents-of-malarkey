@@ -1,0 +1,72 @@
+@keyframes basic_fade {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+.loader {
+  position: relative;
+  width: 100vw;
+  height: 100svh;
+  display: grid;
+  place-content: center;
+
+  /* CSS Variables for responsive calculations */
+  --column-size: min(20px, calc((100vw - 160px) / 16));
+  --gap-size: min(10px, calc((100vw - 320px) / 15));
+
+  grid-template-columns: repeat(16, var(--column-size));
+  gap: var(--gap-size);
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* Default style for all squares - responsive size */
+.square {
+  background: #ebebeb;
+  width: var(--column-size);
+  height: var(--column-size);
+  border-radius: 50%;
+  aspect-ratio: 1;
+  min-width: 12px;
+  min-height: 12px;
+}
+
+/* Green dots based on exact Braille pattern */
+/* Row 1: positions 1,2,3, 5, 7, 9, 11, 13, 15, 16 */
+#sq1,
+#sq2,
+#sq3,
+#sq5,
+#sq7,
+#sq9,
+#sq11,
+#sq13,
+#sq15,
+#sq16 {
+  animation: basic_fade 675ms ease-in-out 0s infinite alternate;
+  background: #499400;
+}
+
+/* Row 2: positions 21, 25, 26, 30, 32 */
+#sq21,
+#sq25,
+#sq26,
+#sq30,
+#sq32 {
+  animation: basic_fade 675ms ease-in-out 150ms infinite alternate;
+  background: #499400;
+}
+
+/* Row 3: positions 33, 37, 41, 43, 48 */
+#sq33,
+#sq37,
+#sq41,
+#sq43,
+#sq48 {
+  animation: basic_fade 675ms ease-in-out 300ms infinite alternate;
+  background: #499400;
+}

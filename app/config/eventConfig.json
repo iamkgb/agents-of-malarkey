@@ -1,0 +1,57 @@
+{
+  "event": {
+    "id": "agents-of-malarkey",
+    "eventName": "Agents of Malarkey Music Festival",
+    "eventDescription": "An immersive music experience at Mehrauli Archaeological Park",
+    "page": {
+      "title": "WHERE THE TREES LAMENT OVER OUR MALARKEY",
+      "heroImage": "https://res.cloudinary.com/xbuild/image/upload/v1756901923/events/agents-of-malarkey/hero_image_ace45c2b_h5ratb.jpg",
+      "description": "… a multi-media speculative exercise to serve as an investigation into the absurd and nonsensical facets of our shared existence, offering audiences an opportunity to engage with the bizarre realities that often go unnoticed in our everyday lives. It aims to transform the traditional reportage and theatre experience into an interactive and participatory encounter where the audience becomes an integral part of the storytelling process. The central theme of \"Agents of Malarkey\" revolves around the exploration of nonsensical elements of our existence. Those which question our human realities. Through poetic narratives, soundscapes, and archival visuals, the work delves into the malarkey of our world.. \n\nBackground:\nMalarkey, with a hazy etymology, its origin pled in mystery, perhaps a linguistic prank - fitting for a term that thrives on ambiguity. This strange word both means nonsense and heralds nonsensical into our world. Malarkey has always stood for the performative - grand words with hollow cores, chatter that struts without substance. The kind of thing trees have been listening to for centuries. This work takes that slippery nonsense and sets it loose in a world where trees bear witness to our human hubris. revealing nonsensical world we have created through clinical nomenclatures that puts the planetary in a petri dish and infographics. The trees do not rage; they murmur, creak, and lament - not in words, but in rings, roots, and whispers of leaves. Malarkey is therefore a framework for observing our age of escalating absurdities. This is a cartography of absurdity, a field guide to our follies - because sometimes the most nonsensical this is calling nonsense \"progress\". The trees bear testament to a wondrous world other than human, experienced only through auditory visions of an other-than-human world. \n\nA site-specific audio installation at the Mehrauli Archaeological Park, South Delhi, where visitors can navigate through the park using a web application to identify trees that lament over various events that heralds Malarkey - biological, legal, and scientific transgressions - into our world, and witness the possibilities for an other-than-human world",
+      "buttonTitle": "where trees lament over our malarkey"
+    }
+  },
+  "venue": {
+    "coords": [
+      [28.5187732, 77.1819604],
+      [28.517708, 77.1856404],
+      [28.5182547, 77.1882046],
+      [28.5188581, 77.1886123],
+      [28.5205078, 77.1886874],
+      [28.5214976, 77.1860266],
+      [28.5206209, 77.1824647],
+      [28.5187732, 77.1819604]
+    ],
+    "polygonStyle": {
+      "color": "#499400",
+      "fillOpacity": 0,
+      "weight": 10,
+      "opacity": 1
+    }
+  },
+  "markerData": [
+    {
+      "trackTitle": "Malarkey Intro",
+      "artistName": "beatnyk",
+      "latitude": 28.518053,
+      "longitude": 77.18457,
+      "audioUrl": "https://res.cloudinary.com/xbuild/video/upload/v1757240038/events/agents-of-malarkey/Malarkey_Intro_Tone_2_rya55n.wav",
+      "iconUrl": "https://res.cloudinary.com/xbuild/image/upload/v1756893734/events/agents-of-malarkey/marker-1/red-tree_pxygxy.webp"
+    },
+    {
+      "trackTitle": "Apocalyptic Space",
+      "artistName": "beatnyk",
+      "latitude": 28.520383,
+      "longitude": 77.188419,
+      "audioUrl": "https://res.cloudinary.com/xbuild/video/upload/v1757240063/events/agents-of-malarkey/Apocalyptic_Space_twwj9t.wav",
+      "iconUrl": "https://res.cloudinary.com/xbuild/image/upload/v1756893734/events/agents-of-malarkey/marker-1/blue-tree_pqss0a.webp"
+    },
+    {
+      "trackTitle": "Beneath the tree there is more hope of a breeze",
+      "artistName": "beatnyk",
+      "latitude": 28.521047,
+      "longitude": 77.187685,
+      "audioUrl": "https://res.cloudinary.com/xbuild/video/upload/v1757240047/events/agents-of-malarkey/Beneath_the_tree_there_is_more_hope_of_a_breeze_iuky7r.mp3",
+      "iconUrl": "https://res.cloudinary.com/xbuild/image/upload/v1756893734/events/agents-of-malarkey/marker-1/pink-tree_rc9lfu.webp"
+    }
+  ]
+}
