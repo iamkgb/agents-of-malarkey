@@ -276,24 +276,19 @@ const Map = () => {
             }}
             positions={parkPolygon}
           /> */}
-          <MarkerClusterGroup
-            showCoverageOnHover={false}
-            iconCreateFunction={createClusterCustomIcon}
-          >
-            {markers.map((marker, index) => {
-              const isInRange = isWithinProximity(userLocation, marker);
-              return (
-                <Marker
-                  key={index}
-                  position={[marker.latitude, marker.longitude]}
-                  icon={createMarkerIcon(marker.iconUrl, isInRange)}
-                  eventHandlers={{
-                    click: () => handleMarkerClick(marker),
-                  }}
-                />
-              );
-            })}
-          </MarkerClusterGroup>
+          {markers.map((marker, index) => {
+            const isInRange = isWithinProximity(userLocation, marker);
+            return (
+              <Marker
+                key={index}
+                position={[marker.latitude, marker.longitude]}
+                icon={createMarkerIcon(marker.iconUrl, isInRange)}
+                eventHandlers={{
+                  click: () => handleMarkerClick(marker),
+                }}
+              />
+            );
+          })}
 
           {/* User location marker */}
           {userLocation && (
