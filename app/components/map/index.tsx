@@ -1,13 +1,6 @@
 import { useEffect, useState } from "react";
 import L from "leaflet";
-import {
-  MapContainer,
-  TileLayer,
-  Marker,
-  Polygon,
-  ZoomControl,
-} from "react-leaflet";
-import MarkerClusterGroup from "react-leaflet-markercluster";
+import { MapContainer, TileLayer, Marker, ZoomControl } from "react-leaflet";
 import * as turf from "@turf/turf";
 
 import eventConfig from "../../config/eventConfig.json";
@@ -15,10 +8,7 @@ import type { MarkerData, UserLocation } from "./types";
 import {
   MOCK_USER_LOCATION,
   USE_MOCK_LOCATION,
-  PROXIMITY_THRESHOLD,
-  calculateDistance,
   isWithinProximity,
-  createClusterCustomIcon,
   createMarkerIcon,
   createUserLocationIcon,
 } from "./utils";
@@ -175,19 +165,6 @@ const Map = () => {
   const handleMarkerClick = (marker: MarkerData) => {
     setSelectedMarker(marker);
     setIsDrawerOpen(true);
-
-    // Optional: Log proximity for debugging
-    if (userLocation) {
-      const distance = calculateDistance(
-        userLocation.latitude,
-        userLocation.longitude,
-        marker.latitude,
-        marker.longitude
-      );
-      console.log(
-        `Clicked marker "${marker.trackTitle}" - Distance: ${Math.round(distance)}m, In range: ${distance <= PROXIMITY_THRESHOLD}`
-      );
-    }
   };
 
   // Handle audio player click to open drawer with current track

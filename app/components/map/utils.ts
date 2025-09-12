@@ -1,5 +1,7 @@
 import type { MarkerData, UserLocation } from "./types";
 import L from "leaflet";
+import * as turf from "@turf/turf";
+import eventConfig from "../../config/eventConfig.json";
 
 // Mock location for testing (Delhi coordinates within the venue area)
 export const MOCK_USER_LOCATION: UserLocation = {
@@ -13,6 +15,18 @@ export const USE_MOCK_LOCATION = false;
 
 // Proximity threshold in meters
 export const PROXIMITY_THRESHOLD = 10;
+
+// Check if user is inside the venue polygon
+export const isUserInsideVenue = (
+  userLocation: UserLocation | null
+): boolean => {
+  if (!userLocation) return false;
+
+  const point = turf.point([userLocation.latitude, userLocation.longitude]);
+  const venuePolygon = turf.polygon([eventConfig.venue.coords]);
+
+  return turf.booleanPointInPolygon(point, venuePolygon);
+};
 
 // Calculate distance between two coordinates using Haversine formula
 export const calculateDistance = (

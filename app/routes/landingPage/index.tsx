@@ -1,7 +1,9 @@
 import { useNavigate } from "react-router";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Drawer } from "vaul";
 import eventConfig from "../../config/eventConfig.json";
+import { isUserInsideVenue } from "../../components/map/utils";
+import type { UserLocation } from "../../components/map/types";
 
 // Hero Title Component
 const HeroTitle = () => {
@@ -71,33 +73,127 @@ const HeroDescription = () => {
   );
 };
 
-// Interactive Button Component
+// Interactive Button Component with Location Check
 const InteractiveButton = () => {
   const navigate = useNavigate();
+  const [isCheckingLocation, setIsCheckingLocation] = useState(false);
+  const [userLocation, setUserLocation] = useState<UserLocation | null>(null);
+  const [locationError, setLocationError] = useState<string | null>(null);
+
+  const checkLocationAndNavigate = () => {
+    setIsCheckingLocation(true);
+
+    if (!navigator.geolocation) {
+      setLocationError("Geolocation is not supported by this browser.");
+      setIsCheckingLocation(false);
+      return;
+    }
+
+    const options: PositionOptions = {
+      enableHighAccuracy: true,
+      timeout: 10000,
+      maximumAge: 60000,
+    };
+
+    const successCallback = (position: GeolocationPosition) => {
+      const { latitude, longitude, accuracy } = position.coords;
+      const location: UserLocation = { latitude, longitude, accuracy };
+      setUserLocation(location);
+      console.log("location", location);
+      if (isUserInsideVenue(location)) {
+        // User is inside venue, proceed to map
+        navigate(`/event/${eventConfig.event.id}`);
+      } else {
+        // User is outside venue, show outside venue component
+        navigate(`/outside-the-venue`);
+      }
+      setIsCheckingLocation(false);
+    };
+
+    const errorCallback = (error: GeolocationPositionError) => {
+      console.error("Geolocation error:", error);
+      let errorMessage = "Unable to retrieve your location.";
+
+      switch (error.code) {
+        case error.PERMISSION_DENIED:
+          errorMessage =
+            "Location access denied. Please enable location access to continue.";
+          break;
+        case error.POSITION_UNAVAILABLE:
+          errorMessage = "Location information is unavailable.";
+          break;
+        case error.TIMEOUT:
+          errorMessage = "Location request timed out.";
+          break;
+      }
+
+      setLocationError(errorMessage);
+      setIsCheckingLocation(false);
+    };
+
+    navigator.geolocation.getCurrentPosition(
+      successCallback,
+      errorCallback,
+      options
+    );
+  };
 
   const handleButtonClick = () => {
-    navigate(`/event/${eventConfig.event.id}`);
+    checkLocationAndNavigate();
   };
 
   return (
-    <button
-      onClick={handleButtonClick}
-      className="group relative bg-white hover:bg-gray-50 text-gray-900 font-medium w-48 h-48 rounded-full border border-gray-200 hover:border-gray-300 shadow-sm transition-colors duration-300 flex flex-col items-center justify-center space-y-2"
-    >
-      {/* Leaf Icon */}
-      <svg
-        className="w-6 h-6 text-gray-600 group-hover:text-gray-800 transition-colors duration-300"
-        fill="currentColor"
-        viewBox="0 0 24 24"
-      >
-        <path d="M17,8C8,10 5.9,16.17 3.82,21.34L5.71,22L6.66,19.7C7.14,19.87 7.64,20 8,20C19,20 22,3 22,3C21,5 14,5.25 9,6.25C4,7.25 2,11.5 2,13.5C2,15.5 3.75,17.25 3.75,17.25C7,8 17,8 17,8Z" />
-      </svg>
+    <>
+      {locationError && (
+        <div className="bg-red-50 border border-red-200 rounded-lg p-4 mb-4 max-w-md">
+          <p className="text-sm text-red-800">{locationError}</p>
+        </div>
+      )}
 
-      {/* Button Text */}
-      <span className="text-xs uppercase tracking-wider text-center leading-tight max-w-[120px]">
-        {eventConfig.event.page.buttonTitle}
-      </span>
-    </button>
+      <button
+        onClick={handleButtonClick}
+        disabled={isCheckingLocation}
+        className="group relative bg-white hover:bg-gray-50 text-gray-900 font-medium w-48 h-48 rounded-full border border-gray-200 hover:border-gray-300 shadow-sm transition-colors duration-300 flex flex-col items-center justify-center space-y-2 disabled:opacity-50 disabled:cursor-not-allowed"
+      >
+        {/* Leaf Icon or Loading */}
+        {isCheckingLocation ? (
+          <svg
+            className="w-6 h-6 text-gray-600 animate-spin"
+            fill="none"
+            viewBox="0 0 24 24"
+          >
+            <circle
+              cx="12"
+              cy="12"
+              r="10"
+              stroke="currentColor"
+              strokeWidth="4"
+              className="opacity-25"
+            />
+            <path
+              fill="currentColor"
+              d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+              className="opacity-75"
+            />
+          </svg>
+        ) : (
+          <svg
+            className="w-6 h-6 text-gray-600 group-hover:text-gray-800 transition-colors duration-300"
+            fill="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path d="M17,8C8,10 5.9,16.17 3.82,21.34L5.71,22L6.66,19.7C7.14,19.87 7.64,20 8,20C19,20 22,3 22,3C21,5 14,5.25 9,6.25C4,7.25 2,11.5 2,13.5C2,15.5 3.75,17.25 3.75,17.25C7,8 17,8 17,8Z" />
+          </svg>
+        )}
+
+        {/* Button Text */}
+        <span className="text-xs uppercase tracking-wider text-center leading-tight max-w-[120px]">
+          {isCheckingLocation
+            ? "Checking location..."
+            : eventConfig.event.page.buttonTitle}
+        </span>
+      </button>
+    </>
   );
 };
 
